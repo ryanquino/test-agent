@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EnrichedTestCase",
+  "description": "Schema for the enriched test case produced by Agent 1 and consumed by Agent 2",
+  "type": "object",
+  "required": ["caseId", "title", "feature", "steps", "assertions"],
+  "properties": {
+    "caseId": {
+      "type": "string",
+      "pattern": "^C\\d+$",
+      "description": "Kiwi TCMS case ID, e.g. C291"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable test case title"
+    },
+    "feature": {
+      "type": "string",
+      "description": "Feature area (used for folder naming), e.g. candidates, jobs, administration"
+    },
+    "preconditions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of preconditions that must be true before test runs"
+    },
+    "navigation": {
+      "type": "object",
+      "properties": {
+        "menu": { "type": "string", "description": "Top-level nav menu item" },
+        "subMenu": { "type": "string", "description": "Sub-menu item (optional)" },
+        "destination": { "type": "string", "description": "Human-readable page destination" }
+      },
+      "required": ["menu", "destination"]
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["step", "action"],
+        "properties": {
+          "step": { "type": "integer", "description": "Step number (1-indexed)" },
+          "action": { "type": "string", "description": "Detailed action description" },
+          "element": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string", "description": "Element type: button, link, input, heading, etc." },
+              "identifier": { "type": "string", "description": "Text, label, or role identifier for the element" },
+              "locatorHint": { "type": "string", "description": "Optional: suggested Playwright locator" }
+            }
+          },
+          "data": { "type": "string", "description": "Data to input (from testData keys)" },
+          "expectedResult": { "type": "string", "description": "What should happen after this step" },
+          "waitAfter": {
+            "type": "string",
+            "enum": ["load", "networkidle", "domcontentloaded", "none"],
+            "description": "Which waitForLoadState to use after this step"
+          }
+        }
+      }
+    },
+    "testData": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Key-value pairs of test data needed by the test"
+    },
+    "assertions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "target"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["visibility", "text", "value", "count", "checked", "notVisible"],
+            "description": "Assertion type"
+          },
+          "target": { "type": "string", "description": "Element to assert on (role/label/text)" },
+          "value": { "type": "string", "description": "Expected value (for text/value/count assertions)" }
+        }
+      }
+    },
+    "cleanup": {
+      "type": "object",
+      "properties": {
+        "required": { "type": "boolean", "description": "Whether this test creates data that needs cleanup" },
+        "strategy": { "type": "string", "description": "Cleanup approach description" }
+      }
+    },
+    "serialGroup": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Serial group name" },
+        "order": { "type": "integer", "description": "Position within the serial group" },
+        "totalInGroup": { "type": "integer", "description": "Total tests in this serial group" }
+      },
+      "description": "If this test belongs to a serial group of dependent tests"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "caseId": "C6-KeywordSearchResults",
+  "title": "Keyword Search",
+  "section": "Job Search / List",
+  "preconditions": "User is on the CX candidate portal's job list / search page",
+  "steps": "1. Search using a keyword unique to a specific job.\n2. Review results.",
+  "stepsFormatted": [
+    { "content": "Search using a keyword unique to a specific job.", "expected": "" },
+    { "content": "Review results.", "expected": "Only jobs matching the keyword are returned (per configured search scope — title/description/etc.)." }
+  ],
+  "expectedResult": "Only jobs matching the keyword are returned (per configured search scope — title/description/etc.).",
+  "notes": "On the CX portal, confirm a keyword search returns only jobs whose title/description actually contain that keyword.",
+  "refs": "",
+  "priority": 2,
+  "type": 1
+}

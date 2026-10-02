@@ -1,0 +1,77 @@
+{
+  "caseId": "C291",
+  "title": "Save search",
+  "feature": "candidates",
+  "preconditions": [
+    "User is logged in",
+    "User is on Advanced Search page (Candidates > Candidate Pool)"
+  ],
+  "navigation": {
+    "menu": "Candidates",
+    "subMenu": "Candidate Pool",
+    "destination": "Advanced Search page"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "action": "Click the ellipsis (more actions) button",
+      "element": {
+        "type": "button",
+        "identifier": "ellipsis/more actions",
+        "locatorHint": "getByRole('button') with ellipsis icon"
+      },
+      "expectedResult": "Dropdown menu appears with options",
+      "waitAfter": "none"
+    },
+    {
+      "step": 2,
+      "action": "Click 'Save Search' link in the dropdown",
+      "element": {
+        "type": "link",
+        "identifier": "Save Search"
+      },
+      "expectedResult": "Save search dialog/form appears with name field",
+      "waitAfter": "domcontentloaded"
+    },
+    {
+      "step": 3,
+      "action": "Enter search name in the Name field",
+      "element": {
+        "type": "input",
+        "identifier": "Name"
+      },
+      "data": "searchName",
+      "expectedResult": "Name field is filled with the search name",
+      "waitAfter": "none"
+    },
+    {
+      "step": 4,
+      "action": "Click the Save button",
+      "element": {
+        "type": "button",
+        "identifier": "Save"
+      },
+      "expectedResult": "Search is saved and page heading updates to show the saved search name",
+      "waitAfter": "networkidle"
+    }
+  ],
+  "testData": {
+    "searchName": "My Saved Search"
+  },
+  "assertions": [
+    {
+      "type": "visibility",
+      "target": "heading with saved search name",
+      "value": "My Saved Search"
+    }
+  ],
+  "cleanup": {
+    "required": true,
+    "strategy": "Delete the saved search via Manage My Searches before creating a new one"
+  },
+  "serialGroup": {
+    "name": "Candidates Ellipsis Action",
+    "order": 1,
+    "totalInGroup": 3
+  }
+}
