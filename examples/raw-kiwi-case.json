@@ -1,0 +1,17 @@
+{
+  "caseId": "C291",
+  "title": "Save search",
+  "section": "Candidate Pool",
+  "preconditions": "User is on the Advanced Search page",
+  "steps": "1. Click ellipsis button\n2. Click Save Search\n3. Enter name\n4. Click Save",
+  "stepsFormatted": [
+    { "content": "Click ellipsis button", "expected": "" },
+    { "content": "Click Save Search", "expected": "" },
+    { "content": "Enter name", "expected": "" },
+    { "content": "Click Save", "expected": "Search is saved" }
+  ],
+  "expectedResult": "Search is saved and the page heading shows the saved search name",
+  "refs": "",
+  "priority": 2,
+  "type": 1
+}
